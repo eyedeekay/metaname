@@ -1,7 +1,8 @@
 #! /usr/bin/env sh
 
 if [ -f "$1" ]; then
-        export prename="$(echo $1 | tr '.' ' ')"
+        export bn=$(basename "$1")
+        export prename="$(echo $bn | tr '.' ' ')"
 fi
 
 for segment in $prename; do
