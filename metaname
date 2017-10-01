@@ -1,0 +1,53 @@
+#! /usr/bin/env sh
+
+if [ -f "$1" ]; then
+        export prename="$(echo $1 | tr '.' ' ')"
+fi
+
+for segment in $prename; do
+        if [ $(echo "$segment" | grep -E 's[0-9]{1,3}e[0-9]{1,3}') ]; then
+                export se="$(echo $segment | sed 's|e| e|')"
+                for subsegment in $se; do
+                        if [ $(echo "$subsegment" | grep s) ]; then
+                                echo "$subsegment" | sed 's|s|Season: |'
+                        elif [ $(echo "$subsegment" | grep e) ]; then
+                                echo "$subsegment" | sed 's|e|Episode: |'
+                        fi
+                done
+        elif [ $(echo "$segment" | grep -E '[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}') ]; then
+                echo "Date: $segment"
+        elif [ $(echo "$segment" | grep -E '[0-9]{4}') ]; then
+                echo "Year: $segment"
+        elif [ $(echo "$segment" | grep "dir:") ]; then
+                subsegment="$(echo $segment | sed 's|dir:||' | tr '_' ' ' | sed 's|.*|\u&|' )"
+                echo -n "Director: "
+                for subsubsegment in $subsegment; do
+                        echo -n "$subsubsegment " | sed 's|.*|\u&|'
+                done
+                echo
+        elif [ $(echo "$segment" | grep "lic:") ]; then
+                subsegment="$(echo $segment | sed 's|lic:||' | tr '_' ' ' | sed 's|.*|\u&|' )"
+                echo -n "License: "
+                for subsubsegment in $subsegment; do
+                        echo -n "$subsubsegment " | sed 's|.*|\u&|'
+                done
+                echo
+        elif [ $(echo "$segment" | grep "desc:") ]; then
+                subsegment="$(echo $segment | sed 's|desc:||' | sed 's|.*|\u&|' | tr '_' ' ' )"
+                echo -n "Description: "
+                for subsubsegment in $subsegment; do
+                        echo -n "$subsubsegment "
+                done
+                echo
+        elif [ "$segment" = mp4 ]; then
+                echo
+        else
+                subsegment="$(echo $segment | tr '_' ' ' | sed 's|.*|\u&|')"
+                echo -n "Title: "
+                for subsubsegment in $subsegment; do
+                        echo -n "$subsubsegment " | sed 's|.*|\u&|'
+                done
+                echo
+        fi
+done
+
