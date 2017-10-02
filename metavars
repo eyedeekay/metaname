@@ -1,0 +1,56 @@
+#! /usr/bin/env sh
+export dex="$(metaname $1 | sed 's|: |=\"|')"
+if [ "$(echo -n "$dex" | grep Title)" ]; then
+        echo -n "export "
+        echo -n "$dex" | grep Title \
+                | head -n 1 | tr -d '\n' \
+                | sed 's| "|"|' && echo '";'
+fi
+if [ "$(echo -n "$dex" | grep Date)" ]; then
+        echo -n "export "
+        echo -n "$dex" | grep Date \
+                | head -n 1 | tr -d '\n' \
+                | sed 's| "|"|' && echo '";'
+fi
+if [ "$(echo -n "$dex" | grep Year)" ]; then
+        echo -n "export "
+        echo -n "$dex" | grep Year \
+                | head -n 1 | tr -d '\n' \
+                | sed 's| "|"|' && echo '";'
+fi
+if [ "$(echo -n "$dex" | grep Genre)" ]; then
+        echo -n "export "
+        echo -n "$dex" | grep Genre \
+                | head -n 1 | tr -d '\n' \
+                | sed 's| "|"|' && echo '";'
+fi
+if [ "$(echo -n "$dex" | grep Director)" ]; then
+        echo -n "export "
+        echo -n "$dex" | grep Director \
+                | head -n 1 | tr -d '\n' \
+                | sed 's| "|"|' && echo '";'
+fi
+if [ "$(echo -n "$dex" | grep Description)" ]; then
+        echo -n "export "
+        echo -n "$dex" | grep Description \
+                | head -n 1 | tr -d '\n' \
+                | sed 's| "|"|' && echo '";'
+fi
+if [ "$(echo -n "$dex" | grep License)" ]; then
+        echo -n "export "
+        echo -n "$dex" | grep License \
+                | head -n 1 | tr -d '\n' \
+                | sed 's| "|"|' && echo '";'
+fi
+if [ "$(echo -n "$dex" | grep Season)" ]; then
+        echo -n "export "
+        echo -n "$dex" | grep Season \
+                | head -n 1 | tr -d '\n' \
+                | sed 's| "|"|' && echo '";'
+fi
+if [ "$(echo -n "$dex" | grep Episode)" ]; then
+        echo -n "export "
+        echo -n "$dex" | grep Episode \
+                | head -n 1 | tr -d '\n' \
+                | sed 's| "|"|' && echo '";'
+fi

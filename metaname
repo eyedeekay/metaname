@@ -19,6 +19,13 @@ for segment in $prename; do
                 echo "Date: $segment"
         elif [ $(echo "$segment" | grep -E '[0-9]{4}') ]; then
                 echo "Year: $segment"
+        elif [ $(echo "$segment" | grep "genr:") ]; then
+                subsegment="$(echo $segment | sed 's|genr:||' | tr '_' ' ' | sed 's|.*|\u&|' )"
+                echo -n "Genre: "
+                for subsubsegment in $subsegment; do
+                        echo -n "$subsubsegment " | sed 's|.*|\u&|'
+                done
+                echo
         elif [ $(echo "$segment" | grep "dir:") ]; then
                 subsegment="$(echo $segment | sed 's|dir:||' | tr '_' ' ' | sed 's|.*|\u&|' )"
                 echo -n "Director: "
