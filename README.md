@@ -45,6 +45,13 @@ Tagged Segments:
         Output Formatting: 'Director: Creative Commons'
         Notes: Nothing special.
 
+* Genre:
+
+        Pattern: contains 'genr:'
+        Example: .genr:documentary,educational
+        Output Formatting: 'Genre: Documentary,educational'
+        Notes: For multi-tagging, comma-separated fields are recommended.
+
  * Description:
 
         Pattern: contains 'desc:'
